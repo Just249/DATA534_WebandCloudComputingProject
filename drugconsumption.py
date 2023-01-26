@@ -17,10 +17,17 @@ def drugconsumption(user_input):
       'user-key': key,
       'Cookie': Cookie
     }
-
-    response = requests.request("GET", url, headers=headers)
-    data = response.json()
-
+    
+    try:
+    
+        response = requests.request("GET", url, headers=headers)
+        data = response.json()
+    
+    except:
+        
+        print("The website did not respond, please try again!")
+        return
+    
     drug_codes = []
     brand_names = []
     code_brands = []
@@ -73,39 +80,47 @@ def drugconsumption(user_input):
     # pprint(filters)
     # pprint(filters_ids)
     #############################################################################################################
+    
+    # data validation
+    
+    if not filters:
+        print("There is no match for that brand name.")
+        return
+    else:
+        
+        # route of administration and form of the drug 
 
-    # route of administration and form of the drug 
+        # some empty declarations
+        form_list = []
+        route_list = []
+        brand_namelist=[]
 
-    # some empty declarations
-    form_list = []
-    route_list = []
-    brand_namelist=[]
+        # creating urls
+        route_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/route?lang=en&type=json&id="
+        form_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/form?lang=en&type=json&id="
 
-    # creating urls
-    route_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/route?lang=en&type=json&id="
-    form_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/form?lang=en&type=json&id="
+        # inputting drug ids and retrieving results
+        for drug_id in filters_ids:
 
-    # inputting drug ids and retrieving results
-    for drug_id in filters_ids:
+            # creating url
+            route_url += (str(drug_id) + "&active=yes")
+            form_url += (str(drug_id) + "&active=yes")
 
-        # creating url
-        route_url += (str(drug_id) + "&active=yes")
-        form_url += (str(drug_id) + "&active=yes")
+            # getting responses
+            route_response = requests.request("GET", route_url, headers=headers)
+            time.sleep(1)
+            form_response = requests.request("GET", form_url, headers=headers)
 
-        # getting responses
-        route_response = requests.request("GET", route_url, headers=headers)
-        time.sleep(1)
-        form_response = requests.request("GET", form_url, headers=headers)
+            # converting to list of dictionaries
+            route_data = route_response.json()
+            form_data = form_response.json()
+            # extracting required information
 
-        # converting to list of dictionaries
-        route_data = route_response.json()
-        form_data = form_response.json()
-        # extracting required information
-
-        form_list.append(form_data[0]['pharmaceutical_form_name'])
-        route_list.append(route_data[0]['route_of_administration_name'])
-        brand_namelist.append(filters[filters_ids.index(drug_id)].title())
-
-    ff_d = {'Brand Name':brand_namelist, 'Form': form_list, 'Administration Route': route_list}
-    ff = pd.DataFrame(ff_d)
-    return ff
+            form_list.append(form_data[0]['pharmaceutical_form_name'])
+            route_list.append(route_data[0]['route_of_administration_name'])
+            brand_namelist.append(filters[filters_ids.index(drug_id)].title())
+        
+        print("Here are the results that we found:")
+        ff_d = {'Brand Name':brand_namelist, 'Form': form_list, 'Administration Route': route_list}
+        ff = pd.DataFrame(ff_d)
+        return(ff)
