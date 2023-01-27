@@ -3,6 +3,7 @@ import requests
 from pprint import pprint
 import requests
 import time
+import json
 
 def drugconsumption(user_input):
 
