@@ -41,7 +41,7 @@ def jdrugconsumption(user_input):
 
     # finding matching brand names for user_input
     for brand in brand_names:
-        if user_input in brand.lower():
+        if user_input == brand.lower(): 
             filters.append(brand)
             
     # removing duplicates
