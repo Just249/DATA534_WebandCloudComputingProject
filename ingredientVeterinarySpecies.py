@@ -59,12 +59,6 @@ def ingredientVeterinarySpecies(user_input):
         code_ingredient.append((data[i]['drug_code'],data[i]['ingredient_name']))
 
     df = pd.DataFrame({'drug_codes': drug_codes, 'ingredient_name': ingredient_name, 'code_ingredient': code_ingredient})
-
-    #############################################################################################################
-    # brand_names # used to check the branch names list
-    #############################################################################################################
-
-    # filtering drug ids and brand names
     
     #############################################################################################################
     # different user inputs
@@ -93,11 +87,6 @@ def ingredientVeterinarySpecies(user_input):
     # print(drug_codes[k]) #before
     # print(id_with_ingredients) #after
     #############################################################################################################
-    # print(id_with_ingredients)
-    # print(filters_ids)
-    # print(filters)
-    # data validation
     result = check_filter(filters,key,id_with_ingredients,filters_ids)
     
-    # display.display(result)
     return result
