@@ -5,16 +5,10 @@ import requests
 import time
 import json
 
-def jdrugingredient(user_input):
+def jdrugingredient(user_input, api_token):
     
-    # credentials
-    key = "257eb29dc538a64a9e9d3fdc69758cce"
-
-    url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/drugproduct?lang=en&type=json&status=1&user-key="
-    url += key
-
     headers = {
-      'user-key': key
+      'user-key': api_token
     }
     
     # reading json response from drugproduct API call
