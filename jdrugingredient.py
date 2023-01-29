@@ -41,7 +41,7 @@ def jdrugingredient(user_input):
 
     # finding matching brand names for user_input
     for brand in brand_names:
-        if user_input in brand.lower():
+        if user_input == brand.lower():
             filters.append(brand)
             
     # removing duplicates
@@ -62,37 +62,48 @@ def jdrugingredient(user_input):
 
     #############################################################################################################
 
-    form_list = []
-    route_list = []
+#    form_list = []
+#    route_list = []
+    ingredient_list = []
     brand_namelist=[]
 
     # creating urls to get response from form and route APIs
-    route_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/route?lang=en&type=json&id="
-    form_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/form?lang=en&type=json&id="
-
+#    route_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/route?lang=en&type=json&id="
+#    form_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/form?lang=en&type=json&id="
+    ingredient_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/activeingredient?lang=en&type=json&id="
+    
     # inputting drug ids and retrieving results
     for drug_id in filters_ids:
 
         # creating url specific to a drug
-        route_url += (str(drug_id) + "&active=yes")
-        form_url += (str(drug_id) + "&active=yes")
+#        route_url += (str(drug_id) + "&active=yes")
+#        form_url += (str(drug_id) + "&active=yes")
+        ingredient_url += (str(drug_id) + "&active=yes")
 
         # getting responses
-        route_response = requests.request("GET", route_url, headers=headers)
-        time.sleep(1)
-        form_response = requests.request("GET", form_url, headers=headers)
+#        route_response = requests.request("GET", route_url, headers=headers)
+#       time.sleep(1)
+#        form_response = requests.request("GET", form_url, headers=headers)
+        ingredient_response = requests.request("GET", ingredient_url, headers=headers)
 
         # converting to list of dictionaries using .json()
-        route_data = route_response.json()
-        form_data = form_response.json()
+#        route_data = route_response.json()
+#        form_data = form_response.json()
+        ingredient_data = ingredient_response.json()
         
         # extracting required information
-        form_list.append(form_data[0]['pharmaceutical_form_name'])
-        route_list.append(route_data[0]['route_of_administration_name'])
+#        form_list.append(form_data[0]['pharmaceutical_form_name'])
+#        route_list.append(route_data[0]['route_of_administration_name'])
+        for i in ingredient_data :
+            ingredient_list.append(i['ingredient_name'])
+
+#        ingredient_list.append(ingredient_data[0]['ingredient_name'])
         brand_namelist.append(filters[filters_ids.index(drug_id)].title())
 
+        
     # printing/returning output 
     print("Here are the results that we found:")
-    ff_d = {'Brand Name':brand_namelist, 'Form': form_list, 'Administration Route': route_list}
+#    ff_d = {'Brand Name':brand_namelist, 'Form': form_list, 'Administration Route': route_list}
+    ff_d = {'Brand Name':brand_namelist, 'Ingredient': ingredient_list}
     ff = pd.DataFrame(ff_d)
     return (ff)
