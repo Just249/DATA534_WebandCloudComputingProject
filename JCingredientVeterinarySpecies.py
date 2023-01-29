@@ -7,7 +7,7 @@ import time
 # from helper_functions import web_request as wr
 # from helper_functions import check_filter as cf
 
-key = "9ec4bb641b31ddeeb9bfd84908c8dbb1"
+# key = "9ec4bb641b31ddeeb9bfd84908c8dbb1"
 api1_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/activeingredient?lang=en&type=json"
 
 
@@ -44,7 +44,7 @@ def check_filter(filters,key,id_with_ingredients,filters_ids):
     
     return(ff)
 
-def ingredientVeterinarySpecies(user_input):
+def ingredientVeterinarySpecies(user_input,key):
     data = web_request(key,api1_url)
     
     ingredient_name = []
