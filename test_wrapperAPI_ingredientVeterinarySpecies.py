@@ -4,8 +4,8 @@ from JCingredientVeterinarySpecies import ingredientVeterinarySpecies as ivs
 from JCingredientVeterinarySpecies import web_request as wr
 from JCingredientVeterinarySpecies import check_filter as cf
 
-t1 = ivs("SULFAMETHAZINE")
-t2 = ivs("")
+t1 = ivs("SULFAMETHAZINE","9ec4bb641b31ddeeb9bfd84908c8dbb1")
+t2 = ivs("","9ec4bb641b31ddeeb9bfd84908c8dbb1")
 
 class test_ingredientVeterinarySpecies(unittest.TestCase):
     
@@ -40,7 +40,7 @@ class test_ingredientVeterinarySpecies(unittest.TestCase):
         self.assertAlmostEqual(t1.iloc[0,0], "Sulfamethazine")
         self.assertAlmostEqual(t1.iloc[0,1], "Cattle")
         
-        self.assertAlmostEqual(str(ivs("")), "There is no match for that brand name.")
+        self.assertAlmostEqual(str(ivs("","9ec4bb641b31ddeeb9bfd84908c8dbb1")), "There is no match for that brand name.")
         
         
 unittest.main(argv=[''], verbosity=2, exit=False)
