@@ -1,35 +1,59 @@
 import pandas as pd
 import requests
 from pprint import pprint
+from IPython import display
 import requests
 import time
 
-def ingredientVeterinarySpecies(user_input):
+key = "9ec4bb641b31ddeeb9bfd84908c8dbb1"
+api1_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/activeingredient?lang=en&type=json"
 
-    # credentials
-    key = "9ec4bb641b31ddeeb9bfd84908c8dbb1"
 
-    url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/activeingredient?lang=en&type=json"
-    url += key
-
-    headers = {
-      'user-key': key
-    }
-    
+def web_request(key,url):
+    if url == api1_url:
+        url += key
+    headers = {'user-key': key}
     try:
         response = requests.request("GET", url, headers=headers)
         data = response.json()
-    
+        return data
     except:
-        print("The website did not respond, please try again!")
-        return
+        return "The website did not respond, please try again!"
+    
+    
+def check_filter(filters,key,id_with_ingredients,filters_ids):
+    headers = {'user-key': key}
+    if not filters:
+        return "There is no match for that brand name."
+    else:
+        veterinaryspecies_list = []
+        ingredients_list = []
+        veterinaryspecies_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/veterinaryspecies?lang=en&type=json"
+        # inputting drug ids and retrieving results
+        for drug_id in id_with_ingredients:
+            veterinaryspecies_url += ("&id="+ str(drug_id))
+            # getting responses
+            veterinaryspecies_data = web_request(key,url = veterinaryspecies_url)
+            veterinaryspecies_list.append(veterinaryspecies_data[0]['vet_species_name'])
+            ingredients_list.append(filters[filters_ids.index(drug_id)].title()) 
+    print("Here are the results that we found:")
+    ff_d = {'Ingredient Name':ingredients_list, 'Vet Species': veterinaryspecies_list}
+    ff = pd.DataFrame(ff_d)
+    
+    return(ff)
 
+
+    
+
+
+
+def ingredientVeterinarySpecies(user_input):
+    data = web_request(key,api1_url)
+    
     ingredient_name = []
     drug_codes = []
     code_ingredient = []
     vet_species_name = []
-    
-    
     n = len(data)
     
     for i in range(n):
@@ -39,16 +63,12 @@ def ingredientVeterinarySpecies(user_input):
 
     df = pd.DataFrame({'drug_codes': drug_codes, 'ingredient_name': ingredient_name, 'code_ingredient': code_ingredient})
 
-    
-    
-    # print(df.head())
     #############################################################################################################
     # brand_names # used to check the branch names list
     #############################################################################################################
 
-
     # filtering drug ids and brand names
-
+    
     #############################################################################################################
     # different user inputs
     # user_input = "AVONEX"
@@ -70,8 +90,6 @@ def ingredientVeterinarySpecies(user_input):
             filters_ids.append(drug_codes[k])
 
     id_with_ingredients = list(set(filters_ids)) # removing duplicates
-    # print(id_with_ingredients)
-
 
     #############################################################################################################
     # to check ingredents and corresponding drug ids that are filtered  
@@ -80,47 +98,6 @@ def ingredientVeterinarySpecies(user_input):
     #############################################################################################################
     
     # data validation
+    result = check_filter(filters,key,id_with_ingredients,filters_ids)
     
-    if not filters:
-        print("There is no match for that brand name.")
-        # return "There is no match for that brand name."
-    else:
-        
-        # route of administration and form of the drug 
-
-        # some empty declarations
-        veterinaryspecies_list = []
-        ingredients_list = []
-
-        # creating urls
-        veterinaryspecies_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/veterinaryspecies?lang=en&type=json"
-       
-    
-#         # inputting drug ids and retrieving results
-        for drug_id in id_with_ingredients:
-
-            # creating url
-            veterinaryspecies_url += ("&id="+ str(drug_id))
-
-#             # getting responses
-            veterinaryspecies_response = requests.request("GET", veterinaryspecies_url, headers=headers)
-
-            print(veterinaryspecies_url)
-    
-    
-    
-    
-    
-#             # converting to list of dictionaries
-            veterinaryspecies_data = veterinaryspecies_response.json()
-
-#             # extracting required information
-
-            veterinaryspecies_list.append(veterinaryspecies_data[0]['vet_species_name'])
-
-            ingredients_list.append(filters[filters_ids.index(drug_id)].title())
-        
-        print("Here are the results that we found:")
-        ff_d = {'Ingredient Name':ingredients_list, 'Vet Species': veterinaryspecies_list}
-        ff = pd.DataFrame(ff_d)
-        return(ff)
+    display.display(result)
