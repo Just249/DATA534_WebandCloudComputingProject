@@ -42,11 +42,6 @@ def check_filter(filters,key,id_with_ingredients,filters_ids):
     
     return(ff)
 
-
-    
-
-
-
 def ingredientVeterinarySpecies(user_input):
     data = web_request(key,api1_url)
     
@@ -96,8 +91,11 @@ def ingredientVeterinarySpecies(user_input):
     # print(drug_codes[k]) #before
     # print(id_with_ingredients) #after
     #############################################################################################################
-    
+    # print(id_with_ingredients)
+    # print(filters_ids)
+    # print(filters)
     # data validation
     result = check_filter(filters,key,id_with_ingredients,filters_ids)
     
     display.display(result)
+    return result
