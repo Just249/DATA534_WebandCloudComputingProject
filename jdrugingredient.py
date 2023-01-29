@@ -96,9 +96,10 @@ def jdrugingredient(user_input):
 #        route_list.append(route_data[0]['route_of_administration_name'])
         for i in ingredient_data :
             ingredient_list.append(i['ingredient_name'])
+            brand_namelist.append(filters[filters_ids.index(drug_id)].title())
 
 #        ingredient_list.append(ingredient_data[0]['ingredient_name'])
-        brand_namelist.append(filters[filters_ids.index(drug_id)].title())
+#        brand_namelist.append(filters[filters_ids.index(drug_id)].title())
 
         
     # printing/returning output 
