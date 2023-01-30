@@ -5,10 +5,10 @@ import requests
 import time
 import json
 
-def jdrugconsumption(user_input):
+def jdrugconsumption(user_input, user_key):
     
     # credentials
-    key = "14ec6574be9f7ef563bce7b554798152"
+    key = user_key
     Cookie = "38771cce9ac0f974522b34af498bfe66=56e404caec9315398b6da15a1e47abfc"
 
     url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/drugproduct?lang=en&type=json&status=1&user-key="
