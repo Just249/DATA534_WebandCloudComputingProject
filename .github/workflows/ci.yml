@@ -22,5 +22,6 @@ jobs:
           pip install pytest
           pip install pandas
           pip install requests
+          pip install ipython
       - name: Run tests with pytest
         run: pytest 
