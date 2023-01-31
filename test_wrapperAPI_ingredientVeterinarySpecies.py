@@ -16,7 +16,7 @@ class test_ingredientVeterinarySpecies(unittest.TestCase):
         self.wrong_api1_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1"
         self.filters = ['SULFAMETHAZINE']
         self.filters_ids = [724]
-        self.id_with_ingredients = [724]
+        self.id_with_ingredients = [723]
         
     def tearDown(self):
         print("\nThis is the tearDown of test_jdrugconsumption")
@@ -41,6 +41,8 @@ class test_ingredientVeterinarySpecies(unittest.TestCase):
         self.assertAlmostEqual(t1.iloc[0,1], "Cattle")
         
         self.assertAlmostEqual(str(ivs("","9ec4bb641b31ddeeb9bfd84908c8dbb1")), "There is no match for that brand name.")
+        
+        
         
         
 unittest.main(argv=[''], verbosity=2, exit=False)
