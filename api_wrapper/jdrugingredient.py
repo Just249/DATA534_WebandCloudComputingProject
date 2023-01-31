@@ -6,7 +6,17 @@ import time
 import json
 
 def jdrugingredient(user_input, api_token):
-    
+    """Summary or Description of the Function
+
+    Parameters:
+    user_input (str): the drug name to be searched
+    api_token (str): gc DPD user token
+
+    Returns:
+    pandas.DataFrame: dataframe containing drug name and ingredient name
+
+   """
+
     headers = {
       'user-key': api_token
     }
