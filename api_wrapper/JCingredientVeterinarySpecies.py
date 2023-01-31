@@ -12,6 +12,13 @@ api1_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1/activeingredie
 
 
 def web_request(key,url):
+    """Description of the web_request Function
+    Parameters:
+    key (str): gc DPD user token
+    url (str): url to the gc DPD api
+    Returns:
+    json: api url response in jason format or return error message if fail to get request from url
+    """
     if url == api1_url:
         url += key
     headers = {'user-key': key}
@@ -24,6 +31,15 @@ def web_request(key,url):
     
     
 def check_filter(filters,key,id_with_ingredients,filters_ids):
+    """Description of the check_filter Function
+    Parameters:
+    filters (list): Drug name that is refuring to the input ingredients
+    key (str): gc DPD user token
+    id_with_ingredients (list): Drug id that is refuring to the input ingredients
+    filters_ids(list): Unique drug id that contain input ingredients
+    Returns:
+    pandas.DataFrame: dataframe containing record of Veterinary Species and its corresponding drug code that were made by the ingredent that the user input
+    """
     headers = {'user-key': key}
     if not filters:
         return "There is no match for that brand name."
@@ -45,6 +61,13 @@ def check_filter(filters,key,id_with_ingredients,filters_ids):
     return(ff)
 
 def ingredientVeterinarySpecies(user_input,key):
+    """Description of the ingredientVeterinarySpecies Function
+    Parameters:
+    user_input (str): Ingredient name
+    api_token (str): gc DPD user token
+    Returns:
+    pandas.DataFrame: dataframe containing record of Veterinary Species and its corresponding drug code that were made by the ingredent that the user input
+   """
     data = web_request(key,api1_url)
     
     ingredient_name = []
