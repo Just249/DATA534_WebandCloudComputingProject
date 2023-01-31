@@ -16,7 +16,7 @@ class test_ingredientVeterinarySpecies(unittest.TestCase):
         self.wrong_api1_url = "https://dpd-hc-sc-apicast-production.api.canada.ca/v1"
         self.filters = ['SULFAMETHAZINE']
         self.filters_ids = [724]
-        self.id_with_ingredients = [723]
+        self.id_with_ingredients = [724]
         
     def tearDown(self):
         print("\nThis is the tearDown of test_jdrugconsumption")
