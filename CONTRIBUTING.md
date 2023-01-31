@@ -16,9 +16,6 @@ Always write a clear log message for your commits. One-line messages are fine fo
     > 
     > A paragraph describing what changed and its impact."
 ```
-## Coding conventions
-
-This code should conform to the PEP 8 style guide as far as possible.
 
 
 See https://peps.python.org/pep-0008/ for more info.
