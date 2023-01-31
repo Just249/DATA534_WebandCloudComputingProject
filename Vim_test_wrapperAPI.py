@@ -1,6 +1,6 @@
 import pandas as pd
 import unittest
-from jdrugconsumption import jdrugconsumption as jdg
+from api_wrapper.Vim_jdrugconsumption import jdrugconsumption as jdg
 
 t1 = jdg("LIP BALM SPF 15", "14ec6574be9f7ef563bce7b554798152")
 t2 = jdg("", "14ec6574be9f7ef563bce7b554798152")
