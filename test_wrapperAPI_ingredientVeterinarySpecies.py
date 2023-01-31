@@ -1,8 +1,8 @@
 import unittest
 import pandas as pd
-from JCingredientVeterinarySpecies import ingredientVeterinarySpecies as ivs
-from JCingredientVeterinarySpecies import web_request as wr
-from JCingredientVeterinarySpecies import check_filter as cf
+from api_wrapper.JCingredientVeterinarySpecies import ingredientVeterinarySpecies as ivs
+from api_wrapper.JCingredientVeterinarySpecies import web_request as wr
+from api_wrapper.JCingredientVeterinarySpecies import check_filter as cf
 
 t1 = ivs("SULFAMETHAZINE","9ec4bb641b31ddeeb9bfd84908c8dbb1")
 t2 = ivs("","9ec4bb641b31ddeeb9bfd84908c8dbb1")
