@@ -6,6 +6,16 @@ import time
 import json
 
 def jdrugconsumption(user_input, user_key):
+    """Summary or Description of the Function
+
+    Parameters:
+    user_input (str): the drug name to be searched
+    api_token (str): gc DPD user token
+
+    Returns:
+    pandas.DataFrame: dataframe containing brand name, route of administration and form of the drug
+
+   """
     
     # credentials
     key = user_key
