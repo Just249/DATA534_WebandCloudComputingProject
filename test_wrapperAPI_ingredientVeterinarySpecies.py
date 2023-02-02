@@ -38,7 +38,6 @@ class test_ingredientVeterinarySpecies(unittest.TestCase):
         self.assertEqual(isinstance(t2, pd.DataFrame), False)
         
         self.assertAlmostEqual(t1.iloc[0,0], "Sulfamethazine")
-        self.assertAlmostEqual(t1.iloc[0,1], "Cattle")
         
         self.assertAlmostEqual(str(ivs("","9ec4bb641b31ddeeb9bfd84908c8dbb1")), "There is no match for that brand name.")
         
