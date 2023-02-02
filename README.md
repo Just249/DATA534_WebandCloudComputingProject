@@ -48,6 +48,30 @@ display.display(jdg("LIP BALM SPF 15", api_token))
 
 ```
 
+## Visualization Demo
+
+```python
+import pandas as pd
+import altair as alt
+import matplotlib.pyplot as plt
+import numpy as np
+
+form = order['Form'].unique()
+admin = order['Administration Route'].to_numpy()
+
+ 
+alt.Chart(order).mark_bar().encode(
+    x= alt.Y('Administration Route', sort='-y'),
+    y='count()',
+    color='Administration Route',
+    tooltip=['Administration Route']
+).properties(
+            width=300,
+            height=200,
+            title = "Order Statistic")
+
+```
+
 ## Intended users and outcome:
 
 Description of the intended users: Pharmacists and Doctors.
