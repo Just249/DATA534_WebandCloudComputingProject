@@ -72,6 +72,9 @@ alt.Chart(order).mark_bar().encode(
 
 ```
 
+![image](https://user-images.githubusercontent.com/61757423/216456182-f99b31bf-e7be-4d49-8a4e-d423617e11a0.png)
+
+
 ## Intended users and outcome:
 
 Description of the intended users: Pharmacists and Doctors.
