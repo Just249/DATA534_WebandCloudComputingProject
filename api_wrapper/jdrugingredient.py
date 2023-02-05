@@ -1,9 +1,8 @@
 import pandas as pd
 import requests
-from pprint import pprint
-import requests
 import time
 import json
+from pprint import pprint
 
 def jdrugingredient(user_input, api_token):
     """Summary or Description of the Function
@@ -49,12 +48,13 @@ def jdrugingredient(user_input, api_token):
     # removing duplicates
     filters = list(set(filters)) 
 
-    # finding drug id(s) corresponding to user-input
+    # finding drug id(s) corresponding to user-input, need exact match
     filters_ids = []
     for item in filters:
         k = brand_names.index(item)
         filters_ids.append(drug_codes[k])
 
+    # These two lists are the components to be used in constructing the return dataframe
     ingredient_list = []
     brand_namelist=[]
 
@@ -75,6 +75,7 @@ def jdrugingredient(user_input, api_token):
             ingredient_list.append(i['ingredient_name'])
             brand_namelist.append(filters[filters_ids.index(drug_id)].title())
 
+    # Preparing to create the function return dataframe, listing a list of ingredient associated in the drug
     print("Here are the results that we found:")
     ff_d = {'Brand Name':brand_namelist, 'Ingredient': ingredient_list}
     ff = pd.DataFrame(ff_d)
